@@ -26,8 +26,12 @@ class Kitchen extends React.Component {
     }
     
     handleChange = name => event => {
+        event.stopPropagation()
         let newTotal = this.state.totalValue
         console.log('before conditional: '+this.state[name])
+        if(name === 'total'){
+            this.sendTotal()
+        } else {
         if(this.state[name] === true){
             newTotal = newTotal - this.prices[name]
             this.setState({
@@ -44,15 +48,15 @@ class Kitchen extends React.Component {
             console.log(this.state.totalValue)
         }
         console.log('after conditional: '+this.state[name])
-        
+    }
         
     }
 
-    componentDidUpdate = () => {
-        if(this.getTotal() != this.props.currentValue){
-            this.props.update(this.state.totalValue)
-        }
+    sendTotal = () => {
+        this.props.update(this.state.totalValue, 'kitchen')
+        this.props.next()
     }
+  
 
     getTotal = () => {
         return this.state.totalValue
@@ -86,6 +90,7 @@ class Kitchen extends React.Component {
                         value="appliances"
                     />
                 </div>
+                <button onClick={this.sendTotal}>Next</button>
             </div>
         )
     }

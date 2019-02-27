@@ -13,30 +13,42 @@ class Addition extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            countertop: false,
-            cabinets: false,
-            appliances: false,
+            single: false,
+            double: false,
+            basement: false,
             totalValue: 0
+        }
+        this.prices = {
+            single: 25000,
+            double: 50000,
+            basement: 75000
         }
     }
     handleChange = name => event => {
         let newTotal = this.state.totalValue
-        if(event.target.value === 'countertop' && this.state.kitchen === false){
-            newTotal = newTotal + 9000
+        console.log('before conditional: '+this.state[name])
+        if(this.state[name] === true){
+            newTotal = newTotal - this.prices[name]
             this.setState({
                 totalValue: newTotal,
-                countertop: true,
+                [name]: false,
             })
-        } else if(event.target.value === 'countertop' && this.state.kitchen === true){
-            newTotal = newTotal - 9000
+            console.log(this.state.totalValue)
+        } else if(this.state[name] === false){
+            newTotal = newTotal + this.prices[name]
             this.setState({
                 totalValue: newTotal,
-                countertop: false,
+                [name]: true,
             })
+            console.log(this.state.totalValue)
         }
+        console.log('after conditional: '+this.state[name])
 
     }
-
+    sendTotal = () => {
+        this.props.update(this.state.totalValue, 'addition')
+        this.props.next()
+    }
     getTotal = () => {
         return this.state.totalValue
     }
@@ -47,29 +59,30 @@ class Addition extends React.Component {
         return (
             <div className={classes.dropContainer}>
                 <div>
-                    <h4>Countertop</h4>
+                    <h4>One Floor Addition</h4>
                     <Checkbox
                         checked={this.state.countertop}
-                        onChange={this.handleChange('countertop')}
-                        value="countertop"
+                        onChange={this.handleChange('single')}
+                        value="single"
                     />
                 </div>
                 <div>
-                    <h4>Cabinets</h4>
+                    <h4>Two Floor Addition</h4>
                     <Checkbox
                         checked={this.state.cabinets}
-                        onChange={this.handleChange('cabinets')}
-                        value="cabinets"
+                        onChange={this.handleChange('double')}
+                        value="double"
                     />
                 </div>
                 <div>
-                    <h4>Appliances</h4>
+                    <h4>Basement Addition</h4>
                     <Checkbox
                         checked={this.state.appliances}
-                        onChange={this.handleChange('appliances')}
-                        value="appliances"
+                        onChange={this.handleChange('basement')}
+                        value="basement"
                     />
                 </div>
+                <button onClick={this.sendTotal}>Finish</button>
             </div>
         )
     }
