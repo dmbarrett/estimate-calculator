@@ -18,23 +18,40 @@ class Kitchen extends React.Component {
             appliances: false,
             totalValue: 0
         }
+        this.prices = {
+            countertop: 9000,
+            cabinets: 5500,
+            appliances: 12000
+        }
     }
+    
     handleChange = name => event => {
         let newTotal = this.state.totalValue
-        if(event.target.value === 'countertop' && this.state.kitchen === false){
-            newTotal = newTotal + 9000
+        console.log('before conditional: '+this.state[name])
+        if(this.state[name] === true){
+            newTotal = newTotal - this.prices[name]
             this.setState({
                 totalValue: newTotal,
-                countertop: true,
+                [name]: false,
             })
-        } else if(event.target.value === 'countertop' && this.state.kitchen === true){
-            newTotal = newTotal - 9000
+            console.log(this.state.totalValue)
+        } else if(this.state[name] === false){
+            newTotal = newTotal + this.prices[name]
             this.setState({
                 totalValue: newTotal,
-                countertop: false,
+                [name]: true,
             })
+            console.log(this.state.totalValue)
         }
+        console.log('after conditional: '+this.state[name])
+        
+        
+    }
 
+    componentDidUpdate = () => {
+        if(this.getTotal() != this.props.currentValue){
+            this.props.update(this.state.totalValue)
+        }
     }
 
     getTotal = () => {
@@ -42,8 +59,7 @@ class Kitchen extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
-
+        const { classes } = this.props
         return (
             <div className={classes.dropContainer}>
                 <div>

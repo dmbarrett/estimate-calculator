@@ -103,6 +103,12 @@ class Estimate extends React.Component {
 
   }
 
+  updateTotal = total => {
+      this.setState({
+          totalValue: total
+      })
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -116,7 +122,7 @@ class Estimate extends React.Component {
                 value="kitchen"
             />
             <div className={classes.kitDrop} id="kitDrop">
-                <Kitchen />
+                <Kitchen update={this.updateTotal} currentValue={this.state.totalValue}/>
             </div>
         </div>
         <div>
