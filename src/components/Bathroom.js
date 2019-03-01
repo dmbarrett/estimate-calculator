@@ -2,11 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     dropContainer: {
-        marginRight: 24
+        borderTop: '2px solid #d3d3d3'
     },
+    dropContainerDiv: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 12,
+        marginBottom: 12,
+        height: 72 
+    },
+    checkWrap: {
+        minHeight: 360
+    },
+    buttonBottom: {
+        float: 'right'
+    }
 })
 
 class Bathroom extends React.Component {
@@ -62,31 +79,33 @@ class Bathroom extends React.Component {
 
         return (
             <div className={classes.dropContainer}>
-                <div>
-                    <h4>Plumbing</h4>
-                    <Checkbox
-                        checked={this.state.plumbing}
-                        onChange={this.handleChange('plumbing')}
-                        value="plumbing"
-                    />
+                <div className={classes.checkWrap}>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">Plumbing</Typography>                        
+                        <Checkbox
+                            checked={this.state.plumbing}
+                            onChange={this.handleChange('plumbing')}
+                            value="plumbing"
+                        />
+                    </div>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">Bathtub, Sink, Toilet</Typography>                        
+                        <Checkbox
+                            checked={this.state.porcelain}
+                            onChange={this.handleChange('porcelain')}
+                            value="porcelain"
+                        />
+                    </div>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">Tile</Typography>                        
+                        <Checkbox
+                            checked={this.state.tile}
+                            onChange={this.handleChange('tile')}
+                            value="tile"
+                        />
+                    </div>
                 </div>
-                <div>
-                    <h4>Bathtub, Sink, Toilet</h4>
-                    <Checkbox
-                        checked={this.state.porcelain}
-                        onChange={this.handleChange('porcelain')}
-                        value="porcelain"
-                    />
-                </div>
-                <div>
-                    <h4>Tile</h4>
-                    <Checkbox
-                        checked={this.state.tile}
-                        onChange={this.handleChange('tile')}
-                        value="tile"
-                    />
-                </div>
-                <button onClick={this.sendTotal}>Next</button>
+                <Button className={classes.buttonBottom} color="primary" onClick={this.sendTotal}>Next</Button>
             </div>
         )
     }

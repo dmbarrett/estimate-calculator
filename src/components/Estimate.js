@@ -1,16 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
 import Kitchen from './Kitchen';
 import Bathroom from './Bathroom';
 import Addition from './Addition';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: ''
+    justifyContent: '',
+    width: 250,
+    margin: '0 auto',
+    padding: '25px 50px',
+    minHeight: 360,
+    minWidth: 480
   },
   formControl: {
     margin: theme.spacing.unit * 3,
@@ -119,14 +126,14 @@ class Estimate extends React.Component {
             <div>
                 <h2>Ready to get a rough estimate?</h2>
                 <p>Let's get started!</p>
-                <button onClick={this.showKitchen}>Begin</button>
+                <Button color="primary" onClick={this.showKitchen}>Begin</Button>
             </div>
         )
     }
     if(this.state.kitchen){
         kitchen = (
             <div>
-            <h3>Kitchen</h3>
+            <Typography variant="h4">Kitchen</Typography>
                 <div className={classes.kitDrop} id="kitchenDrop">
                     <Kitchen update={this.updateTotal} next={this.showBathroom}/>
                 </div>
@@ -136,7 +143,7 @@ class Estimate extends React.Component {
     if (this.state.bathroom){
         bathroom = (
             <div>
-            <h3>Bathroom</h3>
+            <Typography variant="h4">Bathroom</Typography>
                 <div className={classes.bathroomDrop} id="bathroomDrop">
                     <Bathroom update={this.updateTotal} next={this.showAddition}/>
                 </div>
@@ -146,7 +153,7 @@ class Estimate extends React.Component {
     if (this.state.addition){
         addition = (
             <div>
-                <h3>Addition</h3>
+                <Typography variant="h4">Addition</Typography>
                 <div className={classes.additionDrop} id="additionDrop">
                     <Addition update={this.updateTotal} next={this.showSummary}/>
                 </div>
@@ -166,13 +173,13 @@ class Estimate extends React.Component {
         )
     }
     return (
-      <div className={classes.root}>
+      <Paper className={classes.root}>
             {start}
             {kitchen}
             {bathroom}
             {addition}
             {summary}
-      </div>
+      </Paper>
     );
   }
 }

@@ -2,11 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     dropContainer: {
-        marginRight: 24
+        borderTop: '2px solid #d3d3d3'
     },
+    dropContainerDiv: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 12,
+        marginBottom: 12,
+        height: 72 
+    },
+    checkWrap: {
+        minHeight: 360
+    },
+    buttonBottom: {
+        float: 'right'
+    }
 })
 
 class Addition extends React.Component {
@@ -58,31 +75,33 @@ class Addition extends React.Component {
 
         return (
             <div className={classes.dropContainer}>
-                <div>
-                    <h4>One Floor Addition</h4>
-                    <Checkbox
-                        checked={this.state.countertop}
-                        onChange={this.handleChange('single')}
-                        value="single"
-                    />
+                <div className={classes.checkWrap}>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">One Floor Addition</Typography>                        
+                        <Checkbox
+                            checked={this.state.countertop}
+                            onChange={this.handleChange('single')}
+                            value="single"
+                        />
+                    </div>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">Two Floor Addition</Typography>                        
+                        <Checkbox
+                            checked={this.state.cabinets}
+                            onChange={this.handleChange('double')}
+                            value="double"
+                        />
+                    </div>
+                    <div className={classes.dropContainerDiv}>
+                        <Typography variant="h6">Basement Addition</Typography>                        
+                        <Checkbox
+                            checked={this.state.appliances}
+                            onChange={this.handleChange('basement')}
+                            value="basement"
+                        />
+                    </div>
                 </div>
-                <div>
-                    <h4>Two Floor Addition</h4>
-                    <Checkbox
-                        checked={this.state.cabinets}
-                        onChange={this.handleChange('double')}
-                        value="double"
-                    />
-                </div>
-                <div>
-                    <h4>Basement Addition</h4>
-                    <Checkbox
-                        checked={this.state.appliances}
-                        onChange={this.handleChange('basement')}
-                        value="basement"
-                    />
-                </div>
-                <button onClick={this.sendTotal}>Finish</button>
+                <Button className={classes.buttonBottom} color="primary" onClick={this.sendTotal}>Finish</Button>
             </div>
         )
     }
